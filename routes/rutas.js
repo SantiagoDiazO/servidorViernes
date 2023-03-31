@@ -1,4 +1,9 @@
 import express from 'express'
+import { ControladorHabitaciones } from '../controllers/ControladorHabitacion.js'
+import { ControladorReservas } from '../controllers/ControladorReservas.js'
+
+let controladorHabitacion = new ControladorHabitaciones()
+let controladorReservas = new ControladorReservas()
 
 //Para separar las rutas de la logica de noegocio
 //Utilizare un metodo especial de EXPRESS
@@ -8,39 +13,21 @@ export let rutas = express.Router()
 //Listado de servicios
 
 //Habitaciones
-rutas.post('/registrarhabitacion', function (req, res) {
-    res.send('Estamos registrando la habitacion')
-})
+rutas.post('/registrarhabitacion', controladorHabitacion.registrandoHabitacion)
 
-rutas.get('/buscarhabitaciones', function (req, res) {
-    res.send('Estamos buscando todas las habitacion')
-})
+rutas.get('/buscarhabitaciones', controladorHabitacion.buscandoTodasHabitaciones)
 
-rutas.get('/buscarhabitacion', function (req, res) {
-    res.send('Estamos buscando una habitacion')
-})
+rutas.get('/buscarhabitacion/:idhabitacion', controladorHabitacion.buscandoUnaHabitacion)
 
-rutas.put('/actualizarhabitacion', function (req, res) {
-     res.send('Estamos actualizando una habitacion')
-})
+rutas.put('/actualizarhabitacion/:idhabitacion', controladorHabitacion.editandoHabitacion)
 
 //Reservas
-rutas.post('/registrarreserva', function (req, res) {
-    res.send('Estamos registrando una reserva')
-})
+rutas.post('/registrarreserva', controladorReservas.registrarReserva)
 
-rutas.get('/buscarreserva', function (req, res) {
-    res.send('Estamos buscando una reserva')
-})
+rutas.get('/buscarreservas', controladorReservas.buscarTodasReservas)
 
-rutas.get('/buscarreservas', function (req, res) {
-    res.send('Estamos buscando todas las reservas')
-})
+rutas.get('/buscarreserva/:idreserva', controladorReservas.buscarUnaReserva)
 
-rutas.put('/editarreserva', function (req, res) {
-    res.send('Estamos editando una reserva')
-})
+rutas.put('/editarreserva/:idreserva', controladorReservas.editarReserva)
 
-rutas.delete('/eliminarreserva', function (req, res) {
-    res.send('Estamos eliminando una reserva')
-})
+rutas.delete('/eliminarreserva/:idreserva', controladorReservas.eliminarReserva)
