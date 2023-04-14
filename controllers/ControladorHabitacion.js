@@ -19,7 +19,7 @@ export class ControladorHabitaciones{
         let idHabitacion = peticion.params.idHabitacion
         try{
             respuesta.status(200).json({
-                "mensaje": "Exito buscando una habitacion" + idHabitacion
+                "mensaje": "Exito buscando una habitacion " + idHabitacion
             })
         }catch(errorPeticion){
             repuesta.status(400).json({
@@ -41,6 +41,8 @@ export class ControladorHabitaciones{
     }
 
     editandoHabitacion(peticion,respuesta){
+        let idHabitacion = peticion.params.idHabitacion
+        let datosHabitacion = peticion.body
         try{
             respuesta.status(200).json({
                 "mensaje": "Exito editando los datos"

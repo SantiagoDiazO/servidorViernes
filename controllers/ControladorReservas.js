@@ -2,6 +2,8 @@ export class ControladorReservas{
     constructor(){}
 
     registrarReserva(peticion,respuesta){
+        let datosReserva = peticion.body
+        console.log(datosReserva)
         try{
             respuesta.status(200).json({
                 "mensaje": "Exito agregando los datos"
@@ -14,9 +16,10 @@ export class ControladorReservas{
     }
 
     buscarUnaReserva(peticion,respuesta){
+        let idReserva = peticion.params.idHabitacion
         try{
             respuesta.status(200).json({
-                "mensaje": "Exito buscando una reserva"
+                "mensaje": "Exito buscando una reserva " + idReserva
             })
         }catch(errorPeticion){
             repuesta.status(400).json({
@@ -38,6 +41,8 @@ export class ControladorReservas{
     }
 
     editarReserva(peticion,respuesta){
+        let idReserva = peticion.params.idHabitacion
+        let datosReserva = peticion.body
         try{
             respuesta.status(200).json({
                 "mensaje": "Exito editando los datos"
@@ -50,6 +55,8 @@ export class ControladorReservas{
     }
 
     eliminarReserva(peticion,respuesta){
+        let idReserva = peticion.params.idHabitacion
+        let datosReserva = peticion.body
         try{
             respuesta.status(200).json({
                 "mensaje": "Exito eliminando los datos"
