@@ -8,7 +8,7 @@ const Reserva = new Schema({
         type:String,
         required:true
     },
-    appellido:{
+    apellido:{
         type:String,
         required:true
     },
@@ -17,11 +17,11 @@ const Reserva = new Schema({
         required:true
     },
     fechaInicio:{
-        type:Date,
+        type:String,
         required:true
     },
     fechaFinal:{
-        type:Date,
+        type:String,
         required:true
     },
     numeroPersonas:{

@@ -1,68 +1,78 @@
+import { ServicioReservas } from "../services/ServicioReservas.js"
+
 export class ControladorReservas{
     constructor(){}
 
-    registrarReserva(peticion,respuesta){
+    async registrarReserva(peticion,respuesta){
         let datosReserva = peticion.body
-        console.log(datosReserva)
+        let servicioReserva = new ServicioReservas()
         try{
+            await servicioReserva.registrarReserva(datosReserva)
             respuesta.status(200).json({
                 "mensaje": "Exito agregando los datos"
             })
         }catch(errorPeticion){
-            repuesta.status(400).json({
+            respuesta.status(400).json({
                 "mensaje": "Fallamos " + errorPeticion
             })
         }
     }
 
-    buscarUnaReserva(peticion,respuesta){
-        let idReserva = peticion.params.idHabitacion
+    async buscarUnaReserva(peticion,respuesta){
+        let idReserva = peticion.params.idreserva
+        let servicioReserva = new ServicioReservas()
         try{
             respuesta.status(200).json({
-                "mensaje": "Exito buscando una reserva " + idReserva
+                "mensaje": "Exito buscando una reserva " + idReserva,
+                "reserva":await servicioReserva.buscarReserva(idReserva)
             })
         }catch(errorPeticion){
-            repuesta.status(400).json({
+            respuesta.status(400).json({
                 "mensaje": "Fallamos " + errorPeticion
             })
         }
     }
 
-    buscarTodasReservas(peticion,respuesta){
+    async buscarTodasReservas(peticion,respuesta){
+        let servicioReserva = new ServicioReservas()
         try{
             respuesta.status(200).json({
-                "mensaje": "Exito buscando reservas"
+                "mensaje": "Exito buscando reservas",
+                "reservas":await servicioReserva.buscarTodasReservas()
             })
         }catch(errorPeticion){
-            repuesta.status(400).json({
+            respuesta.status(400).json({
                 "mensaje": "Fallamos " + errorPeticion
             })
         }
     }
 
-    editarReserva(peticion,respuesta){
-        let idReserva = peticion.params.idHabitacion
+    async editarReserva(peticion,respuesta){
+        let idReserva = peticion.params.idreserva
         let datosReserva = peticion.body
+        let servicioReserva = new ServicioReservas()
         try{
+            await servicioReserva.ediarReserva(idReserva, datosReserva)
             respuesta.status(200).json({
                 "mensaje": "Exito editando los datos"
             })
         }catch(errorPeticion){
-            repuesta.status(400).json({
+            respuesta.status(400).json({
                 "mensaje": "Fallamos " + errorPeticion
             })
         }
     }
 
-    eliminarReserva(peticion,respuesta){
-        let idReserva = peticion.params.idHabitacion
-        let datosReserva = peticion.body
+    async eliminarReserva(peticion,respuesta){
+        let idReserva = peticion.params.idreserva
+        let servicioReserva = new ServicioReservas()
         try{
+            await servicioReserva.eliminarReserva(idReserva)
             respuesta.status(200).json({
                 "mensaje": "Exito eliminando los datos"
             })
         }catch(errorPeticion){
-            repuesta.status(400).json({
+            respuesta.status(400).json({
                 "mensaje": "Fallamos " + errorPeticion
             })
         }
