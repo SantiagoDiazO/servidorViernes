@@ -17,11 +17,11 @@ const Reserva = new Schema({
         required:true
     },
     fechaInicio:{
-        type:String,
+        type:Date,
         required:true
     },
     fechaFinal:{
-        type:String,
+        type:Date,
         required:true
     },
     numeroPersonas:{
@@ -31,6 +31,10 @@ const Reserva = new Schema({
     idHabitacion:{
         type:String,
         required:true
+    },
+    costoReserva:{
+        type:Number,
+        required:false
     }
 })
 

@@ -1,4 +1,5 @@
 import { ServicioReservas } from "../services/ServicioReservas.js"
+import { ServicioHabitaciones } from "../services/ServicioHabitaciones.js"
 
 export class ControladorReservas{
     constructor(){}
@@ -6,11 +7,28 @@ export class ControladorReservas{
     async registrarReserva(peticion,respuesta){
         let datosReserva = peticion.body
         let servicioReserva = new ServicioReservas()
+        let servicioHabitaciones = new ServicioHabitaciones()
         try{
-            await servicioReserva.registrarReserva(datosReserva)
-            respuesta.status(200).json({
-                "mensaje": "Exito agregando los datos"
-            })
+            let habitacion = await servicioHabitaciones.buscarHabitacion(datosReserva.idHabitacion)
+            if(habitacion){
+                let diferencia = new Date(datosReserva.fechaFinal).getTime() - new Date(datosReserva.fechaInicio).getTime()
+                if(diferencia >= 0){
+                    let diasDeDiferencia = diferencia / 1000 / 60 / 60 / 24
+                    datosReserva.costoReserva = diasDeDiferencia * habitacion.precioNoche
+                    await servicioReserva.registrarReserva(datosReserva)
+                    respuesta.status(200).json({
+                        "mensaje": "Exito agregando los datos"
+                    })
+                }else{
+                    respuesta.status(200).json({
+                        "mensaje": "Fecha invalida, fecha inicio es superior a fecha final"
+                    })
+                }
+            }else{
+                respuesta.status(400).json({
+                    "mensaje": "error buscar reserva"
+                })
+            }
         }catch(errorPeticion){
             respuesta.status(400).json({
                 "mensaje": "Fallamos " + errorPeticion
